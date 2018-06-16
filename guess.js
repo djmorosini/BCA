@@ -1,4 +1,3 @@
-
 let min = 1;
 let max = 100;
 
@@ -7,15 +6,18 @@ let guess = calcMid;
 
 let trys = 1;
 
+console.log("Please think of a number between 1 and " + max + " (inclusive).");
+console.log("I will try to guess it.");
+
+guessAgain();
+
 function capitalize(name) {
     return name[0].toUpperCase() + name.slice(1).toLowerCase();
 }
 
-console.log("Please think of a number between 1 and 100 (inclusive).");
-console.log("I will try to guess it.");
 function guessAgain() {
 
-    guess = calcMid;
+    let guess = calcMid;
 
     console.log("Is it... " + guess);
     console.log("Enter Y for Yes, H if it's higher than " + guess + ", L if it's lower than " + guess + ": ");
@@ -23,13 +25,23 @@ function guessAgain() {
         let answer = chunk.toString().trim();
 
         if (capitalize(answer) == "H") {
-
-            min = calcMid + 1;
-            trys++;
+            if (guess != max) {
+                min = calcMid + 1;
+                trys++;
+            } else if (guess == 100) {
+                console.log("It can't be higher than 100!!")
+            } else {
+                console.log("You can't do that! You already said it was lower than " + (guess+1))
+            }
         } else if (capitalize(answer) == "L") {
-
-            max = calcMid - 1;
-            trys++;
+            if (guess != min) {
+                max = calcMid - 1;
+                trys++;
+            } else if (guess == 1) {
+                console.log("It can't be lower than 1!!")
+            } else {
+                console.log("You can't do that! You already said it was higher than " + (guess-1))
+            }
         } else if (capitalize(answer) == "Y") {
             console.log("Your number was " + guess + "!");
             console.log("I guessed it in " + trys + " tries.");
@@ -44,4 +56,3 @@ function guessAgain() {
     });
 
 }
-guessAgain();
