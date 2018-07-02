@@ -2,13 +2,24 @@
 <html>
 
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>25:00</title>
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script> -->
     <style>
+        body {
+            text-align: center;
+        }
+        #clock {
+            font-family: Orbitron, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 30px; 
+            color:rgb(53, 216, 53);
+            background-color: black;
+            display: inline-block;
+        }
         #tomato {
             font-size: 100px;
         }
@@ -37,7 +48,7 @@
     <div id="clock">
         25:00
     </div>
-
+    <hr>
     <div id="buttons">
         <button id="start" onclick="start()">Start</button>
         <button id="pause" onclick="pause()">Pause</button>
@@ -53,11 +64,17 @@
         const tickDelay = 1000;
 
         let timer
-
+        let startCounter =1
         function start() {
             console.log("start called")
-            minutes -= 1;
+            if (startCounter==1) {
+                minutes -= 1
+            }
+            // minutes -= 1;
             setTimeout(tick, tickDelay)
+            let startButton = document.getElementById("start")
+                startButton.disabled = true
+            startCounter++
         }
 
         function tick() {
@@ -83,6 +100,7 @@
         }
 
         function reset() {
+            startCounter = 1
             secondsRemaining = 60;
             minutes = 25;
             let startButton = document.getElementById("start")
@@ -97,15 +115,21 @@
         function pause() {
             console.log("called pause")
             clearTimeout(timer)
+            let startButton = document.getElementById("start")
+            startButton.disabled = false
         }
         function updateClock() {
             let clock = document.getElementById('clock')
+            let title = document.querySelector('title')
             if (secondsRemaining < 10) {
                 clock.textContent = minutes + ":0" + secondsRemaining
+                title.textContent = minutes + ":0" + secondsRemaining
             } else if (secondsRemaining == 60) {
                 clock.textContent = minutes + ":00"
+                title.textContent = minutes + ":00"
             } else {
                 clock.textContent = minutes + ":" + secondsRemaining
+                title.textContent = minutes + ":" + secondsRemaining
             }
         }
 
