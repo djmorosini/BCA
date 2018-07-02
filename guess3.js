@@ -1,3 +1,5 @@
+'use strict';
+
 let min = 1;
 let max = parseInt(process.argv.slice(2));
 if (isNaN(max)) {
@@ -11,25 +13,6 @@ function capitalizeOut(name) {
 
 pickGame(min, max)
 
-
-
-function askPlayAgain() {
-    console.log("Do you want to play again? Enter 'Y' for yes, or 'N' for no")
-    process.stdin.once('data', (chunk) => {
-        let playAgain = chunk.toString().trim();
-        if (playAgain == "") {
-            console.log("You have to type in a letter!")
-        } else if (capitalizeOut(playAgain) == "Y") {
-            pickGame(min, max)
-        } else if (capitalizeOut(playAgain) == "N") {
-            console.log("Thanks for playing! Bye!")
-            process.exit();
-        } else {
-            console.log("Wrong letter, try again!")
-        }
-
-    })
-}
 function pickGame(min, max) {
     console.log("Welcome to the guess a number game! You can choose to guess the computers number by typing 'H' or you can have the computer guess your number by typing 'C'.")
     console.log("The number will be between " + min + ", and " + max + ". You can change the maximum by entering a number on the command line when running the game!");
@@ -177,3 +160,21 @@ function humanGuessGame(min, max) {
         })
     }
 }
+
+// function askPlayAgain() {
+//     console.log("Do you want to play again? Enter 'Y' for yes, or 'N' for no")
+//     process.stdin.once('data', (chunk) => {
+//         let playAgain = chunk.toString().trim();
+//         if (playAgain == "") {
+//             console.log("You have to type in a letter!")
+//         } else if (capitalizeOut(playAgain) == "Y") {
+//             pickGame(min, max)
+//         } else if (capitalizeOut(playAgain) == "N") {
+//             console.log("Thanks for playing! Bye!")
+//             process.exit();
+//         } else {
+//             console.log("Wrong letter, try again!")
+//         }
+
+//     })
+// }
