@@ -5,7 +5,7 @@
     <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>25:00</title>
+    <title>00:00</title>
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script> -->
@@ -13,16 +13,19 @@
         body {
             text-align: center;
         }
+
         #clock {
             font-family: Orbitron, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            font-size: 30px; 
-            color:rgb(53, 216, 53);
+            font-size: 30px;
+            color: rgb(53, 216, 53);
             background-color: black;
             display: inline-block;
         }
+
         #tomato {
             font-size: 100px;
         }
+
         body.flashing {
             animation-name: flash;
             animation-iteration-count: infinite;
@@ -31,22 +34,23 @@
 
         @keyframes flash {
             0% {
-           background-color: blue
-       }
+                background-color: blue
+            }
             100% {
-           background-color: gray
-       }
-    }
+                background-color: gray
+            }
+        }
     </style>
 </head>
 
 <body>
+    <input type="text" id="setTimer" value="25" />
     <div id="tomato">
         🍅
     </div>
 
     <div id="clock">
-        25:00
+        00:00
     </div>
     <hr>
     <div id="buttons">
@@ -59,21 +63,27 @@
         let audio = new Audio("bell2.mp3")
 
         let secondsRemaining = 60;
-        let minutes = 25;
+        let minutes
 
         const tickDelay = 1000;
 
         let timer
-        let startCounter =1
+        let startCounter = 1
+
+
         function start() {
             console.log("start called")
-            if (startCounter==1) {
+            minutes = document.getElementById("setTimer").value;
+            if (!parseInt(minutes) || minutes == "" || isNaN(minutes)==true) {
+                minutes = 25
+            }
+            if (startCounter == 1) {
                 minutes -= 1
             }
             // minutes -= 1;
             setTimeout(tick, tickDelay)
             let startButton = document.getElementById("start")
-                startButton.disabled = true
+            startButton.disabled = true
             startCounter++
         }
 
@@ -95,7 +105,7 @@
                 body.className = "flashing"
             } else {
                 secondsRemaining = 60;
-                minutes -=1;
+                minutes -= 1
                 start()
             }
         }
@@ -103,7 +113,10 @@
         function reset() {
             startCounter = 1
             secondsRemaining = 60;
-            minutes = 25;
+            minutes = document.getElementById("setTimer").value;
+            if (!parseInt(minutes) || minutes == "" || isNaN(minutes)==true) {
+                minutes = 25
+            }
             let startButton = document.getElementById("start")
             startButton.disabled = false
             let pauseButton = document.getElementById("pause")
@@ -122,6 +135,7 @@
         function updateClock() {
             let clock = document.getElementById('clock')
             let title = document.querySelector('title')
+            clock.textContent = minutes + ":" + secondsRemaining
             if (secondsRemaining < 10) {
                 clock.textContent = minutes + ":0" + secondsRemaining
                 title.textContent = minutes + ":0" + secondsRemaining
@@ -133,7 +147,6 @@
                 title.textContent = minutes + ":" + secondsRemaining
             }
         }
-
     </script>
 </body>
 
