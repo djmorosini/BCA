@@ -21,7 +21,7 @@
     </div>
 
     <div id="clock">
-        25:00 
+        25:00
     </div>
 
     <div id="buttons">
@@ -41,6 +41,7 @@
         let timer
 
         function start() {
+            console.log("start called")
             minutes -= 1;
             setTimeout(tick, tickDelay)
         }
@@ -49,33 +50,58 @@
             secondsRemaining -= 1
 
             updateClock()
-            if (secondsRemaining>0){
-            timer = setTimeout(tick, tickDelay)
-            } else if (secondsRemaining==0 && minutes==0){
+            if (secondsRemaining > 0) {
+                timer = setTimeout(tick, tickDelay)
+            } else if (secondsRemaining == 0 && minutes == 0) {
                 pause()
+                let startButton = document.getElementById("start")
+                startButton.disabled = true
+                let pauseButton = document.getElementById("pause")
+                pauseButton.disabled = true
+
+                
                 audio.play()
             } else {
                 secondsRemaining = 5;
                 start()
             }
         }
+        // function flash() {
+        //     let flashStep = 1
+            
+        //     if (flashStep == 1) {
+        //         document.body.style.backgroundColor = "rgb(126, 126, 126)"
+        //         flashStep = 2
+        //         console.log("gray")
+        //     } else if (flashStep == 2) {
+        //         document.body.style.backgroundColor = "rgb(47, 0, 175)"
+        //         flashStep = 1
+        //         console.log("blue")
+        //     }
+        // }
+
         function reset() {
-            secondsRemaining=5;
-            minutes=1;
+            secondsRemaining = 5;
+            minutes = 1;
+            let startButton = document.getElementById("start")
+            startButton.disabled = false
+            let pauseButton = document.getElementById("pause")
+            pauseButton.disabled = false
             updateClock()
             pause()
         }
         function pause() {
+            console.log("called pause")
             clearTimeout(timer)
-}
+        }
         function updateClock() {
             let clock = document.getElementById('clock')
             if (secondsRemaining < 10) {
-                clock.textContent = minutes + ":0" +secondsRemaining
-            } else if (secondsRemaining==60) {
+                clock.textContent = minutes + ":0" + secondsRemaining
+            } else if (secondsRemaining == 60) {
                 clock.textContent = minutes + ":00"
             } else {
-            clock.textContent = minutes + ":" + secondsRemaining
+                clock.textContent = minutes + ":" + secondsRemaining
             }
         }
 
