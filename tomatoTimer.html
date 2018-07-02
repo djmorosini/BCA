@@ -26,6 +26,7 @@
             font-size: 100px;
         }
 
+
         body.flashing {
             animation-name: flash;
             animation-iteration-count: infinite;
@@ -44,7 +45,6 @@
 </head>
 
 <body>
-    <input type="text" id="setTimer" value="25" />
     <div id="tomato">
         🍅
     </div>
@@ -53,6 +53,10 @@
         00:00
     </div>
     <hr>
+    <p id="message">Enter your desired number of minutes, then hit "Start"</p>
+    <input type="text" id="setTimer" value="25" />
+    <br>
+    <br>
     <div id="buttons">
         <button id="start" onclick="start()">Start</button>
         <button id="pause" onclick="pause()">Pause</button>
@@ -70,11 +74,13 @@
         let timer
         let startCounter = 1
 
+        
+
 
         function start() {
             console.log("start called")
             minutes = document.getElementById("setTimer").value;
-            if (!parseInt(minutes) || minutes == "" || isNaN(minutes)==true) {
+            if (!parseInt(minutes) || minutes == "" || isNaN(minutes) == true) {
                 minutes = 25
             }
             if (startCounter == 1) {
@@ -103,6 +109,8 @@
                 audio.play()
                 let body = document.querySelector("body")
                 body.className = "flashing"
+                // let title = document.querySelector('title')
+                // setTimeout("flashTitle('Take a Break!', '🍅🍅:🍅🍅')", 800);  
             } else {
                 secondsRemaining = 60;
                 minutes -= 1
@@ -114,7 +122,7 @@
             startCounter = 1
             secondsRemaining = 60;
             minutes = document.getElementById("setTimer").value;
-            if (!parseInt(minutes) || minutes == "" || isNaN(minutes)==true) {
+            if (!parseInt(minutes) || minutes == "" || isNaN(minutes) == true) {
                 minutes = 25
             }
             let startButton = document.getElementById("start")
@@ -125,8 +133,11 @@
             pause()
             let body = document.querySelector("body")
             body.classList.remove("flashing")
+            // let tabFlash = setTimeout("flashTitle", 800)
+            // window.clearTimeout(tabFlash)
         }
         function pause() {
+            startCounter = 1;
             console.log("called pause")
             clearTimeout(timer)
             let startButton = document.getElementById("start")
@@ -147,6 +158,15 @@
                 title.textContent = minutes + ":" + secondsRemaining
             }
         }
+        function flashTitle(pageTitle, newMessageTitle) {
+            if (document.title == pageTitle) {
+                document.title = newMessageTitle;
+            }
+            else {
+                document.title = pageTitle;
+            }
+        }
+        
     </script>
 </body>
 
