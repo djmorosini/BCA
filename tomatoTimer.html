@@ -21,7 +21,7 @@
     </div>
 
     <div id="clock">
-        25:00
+        25:00 
     </div>
 
     <div id="buttons">
@@ -31,14 +31,17 @@
     </div>
 
     <script>
+        let audio = new Audio("bell2.mp3")
 
-        let secondsRemaining = 1500;
+        let secondsRemaining = 5;
+        let minutes = 1
+
         const tickDelay = 1000;
 
         let timer
 
         function start() {
-
+            minutes -= 1;
             setTimeout(tick, tickDelay)
         }
 
@@ -48,10 +51,17 @@
             updateClock()
             if (secondsRemaining>0){
             timer = setTimeout(tick, tickDelay)
+            } else if (secondsRemaining==0 && minutes==0){
+                pause()
+                audio.play()
+            } else {
+                secondsRemaining = 5;
+                start()
             }
         }
         function reset() {
-            secondsRemaining=1500;
+            secondsRemaining=5;
+            minutes=1;
             updateClock()
             pause()
         }
@@ -60,7 +70,13 @@
 }
         function updateClock() {
             let clock = document.getElementById('clock')
-            clock.textContent = secondsRemaining
+            if (secondsRemaining < 10) {
+                clock.textContent = minutes + ":0" +secondsRemaining
+            } else if (secondsRemaining==60) {
+                clock.textContent = minutes + ":00"
+            } else {
+            clock.textContent = minutes + ":" + secondsRemaining
+            }
         }
 
     </script>
