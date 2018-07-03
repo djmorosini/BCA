@@ -97,7 +97,7 @@
             startButton.disabled = true
             setTimeout(tick, tickDelay)
             pauseButton.disabled = false
-            firstMinute=false
+            firstMinute = false
         }
 
         function tick() {
@@ -116,13 +116,13 @@
             } else {
                 secondsRemaining = 60
                 minutes -= 1
-                firstStart=false
+                firstStart = false
                 start()
             }
         }
 
         function pause() {
-            firstStart=false
+            firstStart = false
             console.log("pause called")
             pauseButton.disabled = true
             clearTimeout(timer)
