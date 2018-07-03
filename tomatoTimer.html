@@ -2,14 +2,13 @@
 <html>
 
 <head>
+
     <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
     <link rel="icon" type="image/png" href="tomato.png">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>00:00</title>
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script> -->
+
     <style>
         body {
             text-align: center;
@@ -43,9 +42,11 @@
             }
         }
     </style>
+
 </head>
 
 <body>
+
     <div id="tomato">
         🍅💩
     </div>
@@ -76,8 +77,9 @@
         let timer
         let startCounter = 1
 
-
-
+        let startButton = document.getElementById("start")
+        let pauseButton = document.getElementById("pause")
+        let body = document.querySelector("body")
 
         function start() {
             console.log("start called")
@@ -88,32 +90,25 @@
             if (startCounter == 1) {
                 minutes -= 1
             }
-            // minutes -= 1;
-            let startButton = document.getElementById("start")
             startButton.disabled = true
             setTimeout(tick, tickDelay)
-            let pauseButton = document.getElementById("pause")
             pauseButton.disabled = false
             startCounter++
         }
 
         function tick() {
             secondsRemaining -= 1
-
             updateClock()
             if (secondsRemaining > 0) {
                 timer = setTimeout(tick, tickDelay)
             } else if (secondsRemaining == 0 && minutes == 0) {
-                let startButton = document.getElementById("start")
                 startButton.disabled = true
-                let pauseButton = document.getElementById("pause")
                 pauseButton.disabled = true
                 pause()
                 audio.play()
-                let body = document.querySelector("body")
                 body.className = "flashing"
                 // let title = document.querySelector('title')
-                // setTimeout("flashTitle('Take a Break!', '🍅🍅:🍅🍅')", 800);  
+                // setInterval("flashTitle('Take a Break!', '🍅🍅:🍅🍅')", 800);  
             } else {
                 secondsRemaining = 60
                 minutes -= 1
@@ -121,33 +116,11 @@
             }
         }
 
-        function reset() {
-            startCounter = 1
-            secondsRemaining = 60
-            minutes = document.getElementById("setTimer").value
-            if (!parseInt(minutes) || minutes == "" || isNaN(minutes) == true) {
-                minutes = 25
-            }
-            pause()
-            updateClock()
-            let startButton = document.getElementById("start")
-            startButton.disabled = false
-            startButton.textContent = "Start"
-            let pauseButton = document.getElementById("pause")
-            pauseButton.disabled = true
-            let body = document.querySelector("body")
-            body.classList.remove("flashing")
-            // let tabFlash = setTimeout("flashTitle", 800)
-            // window.clearTimeout(tabFlash)
-        }
-
         function pause() {
             startCounter = 1;
-            console.log("called pause")
-            let pauseButton = document.getElementById("pause")
+            console.log("pause called")
             pauseButton.disabled = true
             clearTimeout(timer)
-            let startButton = document.getElementById("start")
             startButton.textContent = "Resume"
             startButton.disabled = false
         }
@@ -155,7 +128,6 @@
         function updateClock() {
             let clock = document.getElementById('clock')
             let title = document.querySelector('title')
-            clock.textContent = minutes + ":" + secondsRemaining
             if (secondsRemaining < 10) {
                 clock.textContent = minutes + ":0" + secondsRemaining
                 title.textContent = minutes + ":0" + secondsRemaining
@@ -168,6 +140,23 @@
             }
         }
 
+        function reset() {
+            startCounter = 1
+            secondsRemaining = 60
+            minutes = document.getElementById("setTimer").value
+            if (!parseInt(minutes) || minutes == "" || isNaN(minutes) == true) {
+                minutes = 25
+            }
+            pause()
+            updateClock()
+            startButton.disabled = false
+            startButton.textContent = "Start"
+            pauseButton.disabled = true
+            body.classList.remove("flashing")
+            // let tabFlash = setTimeout("flashTitle", 800)
+            // window.clearInterval(tabFlash)
+        }
+
         // function flashTitle(pageTitle, newMessageTitle) {
         //     if (document.title == pageTitle) {
         //         document.title = newMessageTitle;
@@ -177,7 +166,6 @@
         //     }
         // }
 
-        let pauseButton = document.getElementById("pause")
         pauseButton.disabled = true
 
     </script>
