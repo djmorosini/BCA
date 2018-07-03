@@ -81,11 +81,15 @@
         let pauseButton = document.getElementById("pause")
         let body = document.querySelector("body")
 
+        let counter = 1
+
         function start() {
             console.log("start called")
-            minutes = document.getElementById("setTimer").value;
-            if (!parseInt(minutes) || minutes == "" || isNaN(minutes) == true) {
-                minutes = 25
+            if (counter == 1) {
+                minutes = document.getElementById("setTimer").value;
+                if (!parseInt(minutes) || minutes == "" || isNaN(minutes) == true) {
+                    minutes = 25
+                }
             }
             if (startCounter == 1) {
                 minutes -= 1
@@ -112,12 +116,13 @@
             } else {
                 secondsRemaining = 60
                 minutes -= 1
+                counter=2
                 start()
             }
         }
 
         function pause() {
-            startCounter = 1;
+            counter=2
             console.log("pause called")
             pauseButton.disabled = true
             clearTimeout(timer)
@@ -141,6 +146,7 @@
         }
 
         function reset() {
+            counter = 1
             startCounter = 1
             secondsRemaining = 60
             minutes = document.getElementById("setTimer").value
