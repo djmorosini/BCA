@@ -3,6 +3,7 @@
 
 <head>
     <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+    <link rel="icon" type="image/png" href="tomato.png">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>00:00</title>
@@ -38,7 +39,7 @@
                 background-color: blue
             }
             100% {
-                background-color: gray
+                background-color: white
             }
         }
     </style>
@@ -66,15 +67,15 @@
     <script>
         let audio = new Audio("bell2.mp3")
 
-        let secondsRemaining = 60;
+        let secondsRemaining = 60
         let minutes
 
-        const tickDelay = 1000;
+        const tickDelay = 1000
 
         let timer
         let startCounter = 1
 
-        
+
 
 
         function start() {
@@ -90,6 +91,8 @@
             setTimeout(tick, tickDelay)
             let startButton = document.getElementById("start")
             startButton.disabled = true
+            let pauseButton = document.getElementById("pause")
+            pauseButton.disabled = false
             startCounter++
         }
 
@@ -112,7 +115,7 @@
                 // let title = document.querySelector('title')
                 // setTimeout("flashTitle('Take a Break!', '🍅🍅:🍅🍅')", 800);  
             } else {
-                secondsRemaining = 60;
+                secondsRemaining = 60
                 minutes -= 1
                 start()
             }
@@ -120,8 +123,8 @@
 
         function reset() {
             startCounter = 1
-            secondsRemaining = 60;
-            minutes = document.getElementById("setTimer").value;
+            secondsRemaining = 60
+            minutes = document.getElementById("setTimer").value
             if (!parseInt(minutes) || minutes == "" || isNaN(minutes) == true) {
                 minutes = 25
             }
@@ -142,6 +145,8 @@
             clearTimeout(timer)
             let startButton = document.getElementById("start")
             startButton.disabled = false
+            let pauseButton = document.getElementById("pause")
+            pauseButton.disabled = true
         }
         function updateClock() {
             let clock = document.getElementById('clock')
@@ -166,7 +171,7 @@
                 document.title = pageTitle;
             }
         }
-        
+
     </script>
 </body>
 
