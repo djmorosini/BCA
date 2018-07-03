@@ -75,29 +75,29 @@
         const tickDelay = 1000
 
         let timer
-        let startCounter = 1
+        let firstMinute = true
 
         let startButton = document.getElementById("start")
         let pauseButton = document.getElementById("pause")
         let body = document.querySelector("body")
 
-        let counter = 1
+        let firstStart = true
 
         function start() {
             console.log("start called")
-            if (counter == 1) {
+            if (firstStart) {
                 minutes = document.getElementById("setTimer").value;
                 if (!parseInt(minutes) || minutes == "" || isNaN(minutes) == true) {
                     minutes = 25
                 }
             }
-            if (startCounter == 1) {
+            if (firstMinute) {
                 minutes -= 1
             }
             startButton.disabled = true
             setTimeout(tick, tickDelay)
             pauseButton.disabled = false
-            startCounter++
+            firstMinute=false
         }
 
         function tick() {
@@ -116,13 +116,13 @@
             } else {
                 secondsRemaining = 60
                 minutes -= 1
-                counter=2
+                firstStart=false
                 start()
             }
         }
 
         function pause() {
-            counter=2
+            firstStart=false
             console.log("pause called")
             pauseButton.disabled = true
             clearTimeout(timer)
@@ -146,8 +146,8 @@
         }
 
         function reset() {
-            counter = 1
-            startCounter = 1
+            firstStart = true
+            firstMinute = true
             secondsRemaining = 60
             minutes = document.getElementById("setTimer").value
             if (!parseInt(minutes) || minutes == "" || isNaN(minutes) == true) {
