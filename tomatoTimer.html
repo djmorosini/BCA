@@ -47,7 +47,7 @@
 
 <body>
     <div id="tomato">
-        🍅
+        🍅💩
     </div>
 
     <div id="clock">
@@ -65,6 +65,7 @@
     </div>
 
     <script>
+
         let audio = new Audio("bell2.mp3")
 
         let secondsRemaining = 60
@@ -88,9 +89,9 @@
                 minutes -= 1
             }
             // minutes -= 1;
-            setTimeout(tick, tickDelay)
             let startButton = document.getElementById("start")
             startButton.disabled = true
+            setTimeout(tick, tickDelay)
             let pauseButton = document.getElementById("pause")
             pauseButton.disabled = false
             startCounter++
@@ -103,12 +104,11 @@
             if (secondsRemaining > 0) {
                 timer = setTimeout(tick, tickDelay)
             } else if (secondsRemaining == 0 && minutes == 0) {
-                pause()
                 let startButton = document.getElementById("start")
                 startButton.disabled = true
                 let pauseButton = document.getElementById("pause")
                 pauseButton.disabled = true
-
+                pause()
                 audio.play()
                 let body = document.querySelector("body")
                 body.className = "flashing"
@@ -128,26 +128,30 @@
             if (!parseInt(minutes) || minutes == "" || isNaN(minutes) == true) {
                 minutes = 25
             }
+            pause()
+            updateClock()
             let startButton = document.getElementById("start")
             startButton.disabled = false
+            startButton.textContent = "Start"
             let pauseButton = document.getElementById("pause")
-            pauseButton.disabled = false
-            updateClock()
-            pause()
+            pauseButton.disabled = true
             let body = document.querySelector("body")
             body.classList.remove("flashing")
             // let tabFlash = setTimeout("flashTitle", 800)
             // window.clearTimeout(tabFlash)
         }
+
         function pause() {
             startCounter = 1;
             console.log("called pause")
-            clearTimeout(timer)
-            let startButton = document.getElementById("start")
-            startButton.disabled = false
             let pauseButton = document.getElementById("pause")
             pauseButton.disabled = true
+            clearTimeout(timer)
+            let startButton = document.getElementById("start")
+            startButton.textContent = "Resume"
+            startButton.disabled = false
         }
+
         function updateClock() {
             let clock = document.getElementById('clock')
             let title = document.querySelector('title')
@@ -163,14 +167,18 @@
                 title.textContent = minutes + ":" + secondsRemaining
             }
         }
-        function flashTitle(pageTitle, newMessageTitle) {
-            if (document.title == pageTitle) {
-                document.title = newMessageTitle;
-            }
-            else {
-                document.title = pageTitle;
-            }
-        }
+
+        // function flashTitle(pageTitle, newMessageTitle) {
+        //     if (document.title == pageTitle) {
+        //         document.title = newMessageTitle;
+        //     }
+        //     else {
+        //         document.title = pageTitle;
+        //     }
+        // }
+
+        let pauseButton = document.getElementById("pause")
+        pauseButton.disabled = true
 
     </script>
 </body>
