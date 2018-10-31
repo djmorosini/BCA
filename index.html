@@ -2,179 +2,37 @@
 <html>
 
 <head>
-
-    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
-    <link rel="icon" type="image/png" href="tomato.png">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>00:00</title>
-
-    <style>
-        body {
-            text-align: center;
-        }
-
-        #clock {
-            font-family: Orbitron, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            font-size: 30px;
-            color: rgb(53, 216, 53);
-            background-color: black;
-            display: inline-block;
-        }
-
-        #tomato {
-            font-size: 100px;
-        }
-
-
-        body.flashing {
-            animation-name: flash;
-            animation-iteration-count: infinite;
-            animation-duration: 1s;
-        }
-
-        @keyframes flash {
-            0% {
-                background-color: blue
-            }
-            100% {
-                background-color: white
-            }
-        }
-    </style>
-
+    <title>25:00</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+    <link rel="icon" type="image/png" href="./files/tomato.png">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
 </head>
 
 <body>
-
     <div id="tomato">
         🍅
     </div>
 
     <div id="clock">
-        00:00
+        <div id='minutes'>25</div><div id='middle'>:</div><div id='seconds'>00</div>
     </div>
     <hr>
-    <p id="message">Enter your desired number of minutes, then hit "Start"</p>
-    <input type="text" id="setTimer" value="25" />
+    <p id="message">Enter the desired number of minutes, then hit "Restart" to change timer.</p>
+    <input maxlength="2" type="text" id="setTimer" value="25" />
     <br>
     <br>
+
     <div id="buttons">
-        <button id="start" onclick="start()">Start</button>
-        <button id="pause" onclick="pause()">Pause</button>
-        <button id="reset" onclick="reset()">Reset</button>
+        <button id='start' onclick='start()'>Start</button>
+        <button id='pause' onclick='pause()'>Pause</button>
+        <button id='reset' onclick='reset()'>Reset</button>
     </div>
 
-    <script>
+    <script src="main.js"></script>
 
-        let audio = new Audio("bell2.mp3")
-
-        let secondsRemaining = 60
-        let minutes
-
-        const tickDelay = 1000
-
-        let timer
-        let firstMinute = true
-
-        let startButton = document.getElementById("start")
-        let pauseButton = document.getElementById("pause")
-        let body = document.querySelector("body")
-
-        let firstStart = true
-
-        function start() {
-            console.log("start called")
-            if (firstStart) {
-                minutes = document.getElementById("setTimer").value;
-                if (!parseInt(minutes) || minutes == "" || isNaN(minutes) == true) {
-                    minutes = 25
-                }
-            }
-            if (firstMinute) {
-                minutes -= 1
-            }
-            startButton.disabled = true
-            setTimeout(tick, tickDelay)
-            pauseButton.disabled = false
-            firstMinute = false
-        }
-
-        function tick() {
-            secondsRemaining -= 1
-            updateClock()
-            if (secondsRemaining > 0) {
-                timer = setTimeout(tick, tickDelay)
-            } else if (secondsRemaining == 0 && minutes == 0) {
-                startButton.disabled = true
-                pauseButton.disabled = true
-                pause()
-                audio.play()
-                body.className = "flashing"
-                // let title = document.querySelector('title')
-                // setInterval("flashTitle('Take a Break!', '🍅🍅:🍅🍅')", 800);  
-            } else {
-                secondsRemaining = 60
-                minutes -= 1
-                firstStart = false
-                start()
-            }
-        }
-
-        function pause() {
-            firstStart = false
-            console.log("pause called")
-            pauseButton.disabled = true
-            clearTimeout(timer)
-            startButton.textContent = "Resume"
-            startButton.disabled = false
-        }
-
-        function updateClock() {
-            let clock = document.getElementById('clock')
-            let title = document.querySelector('title')
-            if (secondsRemaining < 10) {
-                clock.textContent = minutes + ":0" + secondsRemaining
-                title.textContent = minutes + ":0" + secondsRemaining
-            } else if (secondsRemaining == 60) {
-                clock.textContent = minutes + ":00"
-                title.textContent = minutes + ":00"
-            } else {
-                clock.textContent = minutes + ":" + secondsRemaining
-                title.textContent = minutes + ":" + secondsRemaining
-            }
-        }
-
-        function reset() {
-            firstStart = true
-            firstMinute = true
-            secondsRemaining = 60
-            minutes = document.getElementById("setTimer").value
-            if (!parseInt(minutes) || minutes == "" || isNaN(minutes) == true) {
-                minutes = 25
-            }
-            pause()
-            updateClock()
-            startButton.disabled = false
-            startButton.textContent = "Start"
-            pauseButton.disabled = true
-            body.classList.remove("flashing")
-            // let tabFlash = setTimeout("flashTitle", 800)
-            // window.clearInterval(tabFlash)
-        }
-
-        // function flashTitle(pageTitle, newMessageTitle) {
-        //     if (document.title == pageTitle) {
-        //         document.title = newMessageTitle;
-        //     }
-        //     else {
-        //         document.title = pageTitle;
-        //     }
-        // }
-
-        pauseButton.disabled = true
-
-    </script>
 </body>
 
 </html>
